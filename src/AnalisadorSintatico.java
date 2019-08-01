@@ -167,7 +167,6 @@ public class AnalisadorSintatico {
     public static void ListaConst() {
 
         //Constante();
-
         if (PrimeiroConstante.contains(token)) {
             Constante();
 
