@@ -1,0 +1,9 @@
+programa {
+    constantes {
+        inteiro a = 0;
+    }
+
+    metodo principal ( inteiro a ) : vazio { // AINDA SEM ":"
+
+    }
+}

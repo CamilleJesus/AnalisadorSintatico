@@ -93,9 +93,9 @@ public class AnalisadorSintatico {
         Inicio();
 
         if (token.equals("$")) {
-            System.out.println("Sucesso na análise sintática do arquivo" + numeroArquivo + "!");
+            System.out.println("Sucesso na análise sintática do arquivo " + numeroArquivo + "!");
         } else {
-            System.out.println("Erro na análise sintática do arquivo\" + numeroArquivo + \"!\");!");
+            System.out.println("Erro na análise sintática do arquivo " + numeroArquivo + "!");
         }
     }
 
@@ -123,6 +123,8 @@ public class AnalisadorSintatico {
 
     public static void DefGlobal() {
         DefConstante();
+        proximoToken();
+        DefPrincipal();
 
         if (PrimeiroDefConstante.contains(token)) {
             //DefPrincipal();
@@ -156,6 +158,22 @@ public class AnalisadorSintatico {
     }
 
     public static void DefPrincipal() {
+        if (token.equals("metodo")) {
+            proximoToken();
+
+            if (token.equals("principal")) {
+                proximoToken();
+
+                if (token.equals("(")) {
+                    proximoToken();
+                    ListaParam();
+                    if (token.equals(")")) {
+                        proximoToken();
+                    }
+                }
+
+            }
+        }
 
     }
 
@@ -226,4 +244,10 @@ public class AnalisadorSintatico {
             proximoToken();
         }
     }
+
+    public static void ListaParam() {
+
+
+    }
+
 }
