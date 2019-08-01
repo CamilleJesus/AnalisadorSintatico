@@ -120,11 +120,12 @@ public class AnalisadorSintatico {
     }
 
     public static void DefGlobal() {
-        System.out.println(token);
-        System.out.println(numeroToken);
+        //System.out.println(token);
+        //System.out.println(numeroToken);
+
+        DefConstante();
 
         if (PrimeiroDefConstante.contains(token)) {
-            DefConstante();
             //DefPrincipal();
             //DefGlobal2();
         }
@@ -165,8 +166,12 @@ public class AnalisadorSintatico {
 
     public static void ListaConst() {
 
+        //Constante();
+
         if (PrimeiroConstante.contains(token)) {
             Constante();
+
+
 
             if (token.equals(";")) {
                 proximoToken();
