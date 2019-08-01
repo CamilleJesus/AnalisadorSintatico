@@ -20,23 +20,31 @@ public class AnalisadorSintatico {
     private static ArrayList<String> PrimeiroTipoId = new ArrayList<>();
     private static ArrayList<String[]> listaTokens = new ArrayList<>();
     private static String token;
-    private static int numeroToken = 0;
+    private static int tokenAtual = 0, tokenAnterior = 0, numeroArquivo = 0;
 
-    public AnalisadorSintatico() {
+    public static void regras() {
         PrimeiroDefInicio.add("programa");
+
         PrimeiroDefGlobal.add("constantes");
+
         PrimeiroDefConstante.add("constantes");
+
         PrimeiroDefPrincipal.add("principal");
+
         PrimeiroDefGlobal2.add("metodo");
+
         PrimeiroDefMetodo.add("metodo");
+
         PrimeiroConstante.add("inteiro");
         PrimeiroConstante.add("real");
         PrimeiroConstante.add("texto");
         PrimeiroConstante.add("boleano");
+
         PrimeiroListaConst.add("inteiro");
         PrimeiroListaConst.add("real");
         PrimeiroListaConst.add("texto");
         PrimeiroListaConst.add("boleano");
+
         PrimeiroTipoId.add("inteiro");
         PrimeiroTipoId.add("real");
         PrimeiroTipoId.add("texto");
@@ -45,24 +53,21 @@ public class AnalisadorSintatico {
 
     public static void main(String[] args) {
         System.out.println("\n -- ANALISADOR SINTÁTICO -- ");
+        regras();
         lerArquivos();
     }
 
     public static void lerArquivos() {
         File arquivos[], diretorio = new File("teste/");
         arquivos = diretorio.listFiles();
-        int numeroArquivo = 0;
 
         for (int i = 0; i < arquivos.length; i++){
 
             if (arquivos[i].toString().contains("saida")) {
-                System.out.println(arquivos[i]);
 
                 try {
                     numeroArquivo += 1;
-                    System.out.println("\nIniciando a análise sintática do " + numeroArquivo + "º arquivo de entrada.");
                     lerArquivo(arquivos[i]);
-                    System.out.println("\nFinalizando a análise sintática do " + numeroArquivo + "º arquivo de entrada.");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -72,7 +77,6 @@ public class AnalisadorSintatico {
 
     public static void lerArquivo(File nomeArquivo) throws IOException {
         String linha;
-        Scanner in = new Scanner(System.in);
         BufferedReader buffer = new BufferedReader(new FileReader(nomeArquivo));
 
         //Lê todas as linhas do arquivo até o final:
@@ -80,7 +84,6 @@ public class AnalisadorSintatico {
 
             if (linha.contains("<")) {
                 String[] linhaToken = linha.replace("<", "").replace(">", "").replace(" ", "").split(",");
-                //System.out.println(Arrays.toString(linhaToken));
                 listaTokens.add(linhaToken);
             }
         }
@@ -90,17 +93,16 @@ public class AnalisadorSintatico {
         Inicio();
 
         if (token.equals("$")) {
-            System.out.println("Sucesso!");
+            System.out.println("Sucesso na análise sintática do arquivo" + numeroArquivo + "!");
         } else {
-            System.out.println("Erro!");
+            System.out.println("Erro na análise sintática do arquivo\" + numeroArquivo + \"!\");!");
         }
     }
 
     public static void proximoToken() {
-        System.out.println(numeroToken);
-        token = (listaTokens.get(numeroToken))[1];
-        numeroToken++;
-        System.out.println(token);
+        token = (listaTokens.get(tokenAtual))[1];
+        tokenAnterior = tokenAtual;
+        tokenAtual++;
     }
 
     public static void Inicio() {
@@ -120,9 +122,6 @@ public class AnalisadorSintatico {
     }
 
     public static void DefGlobal() {
-        //System.out.println(token);
-        //System.out.println(numeroToken);
-
         DefConstante();
 
         if (PrimeiroDefConstante.contains(token)) {
@@ -166,11 +165,8 @@ public class AnalisadorSintatico {
 
     public static void ListaConst() {
 
-        //Constante();
         if (PrimeiroConstante.contains(token)) {
             Constante();
-
-
 
             if (token.equals(";")) {
                 proximoToken();
@@ -205,10 +201,11 @@ public class AnalisadorSintatico {
 
     public static void AtribuicaoConst() {
 
-        if (listaTokens.get(numeroToken)[0].equals("IDENTIFICADOR")) {
+        if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {
             proximoToken();
 
             if (token.equals("=")) {
+                proximoToken();
                 Valor();
             }
         }
@@ -223,9 +220,9 @@ public class AnalisadorSintatico {
 
     public static void Valor() {
 
-        if ((listaTokens.get(numeroToken)[0].equals("NUMERO")) || (listaTokens.get(numeroToken)[0].equals("CADEIA_CARACTERES"))) {
+        if ((listaTokens.get(tokenAnterior)[0].equals("NUMERO")) || (listaTokens.get(tokenAnterior)[0].equals("CADEIA_CARACTERES"))) {
             proximoToken();
-        } else if (listaTokens.get(numeroToken)[0].equals("IDENTIFICADOR")) {
+        } else if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {
             proximoToken();
         }
     }
