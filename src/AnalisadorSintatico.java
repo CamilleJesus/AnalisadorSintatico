@@ -68,6 +68,7 @@ public class AnalisadorSintatico {
                 try {
                     numeroArquivo += 1;
                     lerArquivo(arquivos[i]);
+                    limpaEstruturas();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -93,14 +94,16 @@ public class AnalisadorSintatico {
         Inicio();
 
         if (token.equals("$")) {
-            System.out.println("Sucesso na análise sintática do arquivo " + numeroArquivo + "!");
+            System.out.println("Sucesso na análise sintática do " + numeroArquivo + "º arquivo!");
         } else {
-            System.out.println("Erro na análise sintática do arquivo " + numeroArquivo + "!");
+            System.out.println("Erro na análise sintática do " + numeroArquivo + "º arquivo!");
         }
     }
 
     public static void proximoToken() {
         token = (listaTokens.get(tokenAtual))[1];
+        System.out.println(tokenAtual);
+        System.out.println(token);
         tokenAnterior = tokenAtual;
         tokenAtual++;
     }
@@ -118,16 +121,16 @@ public class AnalisadorSintatico {
                     proximoToken();
                 }
             }
+        } else {
+            System.out.println("Erro no início do programa.");
         }
     }
 
     public static void DefGlobal() {
-        DefConstante();
-        proximoToken();
-        DefPrincipal();
 
         if (PrimeiroDefConstante.contains(token)) {
-            //DefPrincipal();
+            DefConstante();
+            DefPrincipal();
             //DefGlobal2();
         }
     }
@@ -158,6 +161,7 @@ public class AnalisadorSintatico {
     }
 
     public static void DefPrincipal() {
+
         if (token.equals("metodo")) {
             proximoToken();
 
@@ -166,15 +170,27 @@ public class AnalisadorSintatico {
 
                 if (token.equals("(")) {
                     proximoToken();
-                    ListaParam();
+
                     if (token.equals(")")) {
                         proximoToken();
+
+                        if (token.equals(":")) {
+                            proximoToken();
+                            Tipo();
+
+                            if (token.equals("{")) {
+                                proximoToken();
+                                Declaracao();
+
+                                if (token.equals("}")) {
+                                    proximoToken();
+                                }
+                            }
+                        }
                     }
                 }
-
             }
         }
-
     }
 
     public static void DefMetodo() {
@@ -229,6 +245,15 @@ public class AnalisadorSintatico {
         }
     }
 
+    public static void Tipo() {
+
+        if ((token.equals("vazio"))) {
+            proximoToken();
+        } else {
+            TipoId();
+        }
+    }
+
     public static void TipoId() {
 
         if ((token.equals("inteiro")) || (token.equals("real")) || (token.equals("texto")) || (token.equals("boleano"))) {
@@ -245,9 +270,13 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void ListaParam() {
-
+    public static void Declaracao() {
 
     }
 
+    public static void limpaEstruturas() {
+        listaTokens.clear();
+        tokenAnterior = 0;
+        tokenAtual = 0;
+    }
 }
