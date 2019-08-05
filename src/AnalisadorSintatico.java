@@ -131,15 +131,14 @@ public class AnalisadorSintatico {
         if (PrimeiroDefConstante.contains(token)) {
             DefConstante();
             DefPrincipal();
-            //DefGlobal2();
+            DefGlobal2();
         }
     }
 
     public static void DefGlobal2() {
 
         if (PrimeiroDefMetodo.contains(token)) {
-            DefConstante();
-            DefPrincipal();
+            DefMetodo();
             DefGlobal2();
         }
     }
@@ -194,6 +193,36 @@ public class AnalisadorSintatico {
     }
 
     public static void DefMetodo() {
+
+        if (token.equals("metodo")) {
+            proximoToken();
+
+            if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {  //IDENTIFICADOR  listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")
+                proximoToken();
+
+                if (token.equals("(")) {
+                    proximoToken();
+
+                    if (token.equals(")")) {
+                        proximoToken();
+
+                        if (token.equals(":")) {
+                            proximoToken();
+                            Tipo();
+
+                            if (token.equals("{")) {
+                                proximoToken();
+                                Declaracao();
+
+                                if (token.equals("}")) {
+                                    proximoToken();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     }
 
@@ -271,7 +300,23 @@ public class AnalisadorSintatico {
     }
 
     public static void Declaracao() {
+        DefVariavel();
+    }
 
+    public static void DefVariavel() {
+
+        if (token.equals("variaveis")) {
+            proximoToken();
+
+            if (token.equals("{")) {
+                proximoToken();
+                //Lista...
+
+                if (token.equals("}")) {
+                    proximoToken();
+                }
+            }
+        }
     }
 
     public static void limpaEstruturas() {

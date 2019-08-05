@@ -1,0 +1,18 @@
+programa
+{
+	constantes {
+		inteiro a = 0;
+		texto padrao = "Hello World!";
+	}
+
+	metodo principal() : vazio {
+
+	}
+
+	metodo calcular( inteiro quantidade ) : inteiro {
+	    variaveis {
+	    
+	    }
+
+    }
+}
