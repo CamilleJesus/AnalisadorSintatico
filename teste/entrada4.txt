@@ -9,7 +9,7 @@ programa
 
 	}
 
-	metodo calcular( inteiro quantidade ) : inteiro {
+	metodo calcular( inteiro a ) : inteiro {
 	    variaveis {
 	    
 	    }

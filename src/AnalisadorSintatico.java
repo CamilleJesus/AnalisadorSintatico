@@ -197,11 +197,13 @@ public class AnalisadorSintatico {
         if (token.equals("metodo")) {
             proximoToken();
 
-            if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {  //IDENTIFICADOR  listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")
+            if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {
                 proximoToken();
 
                 if (token.equals("(")) {
                     proximoToken();
+
+                    ListaParam();
 
                     if (token.equals(")")) {
                         proximoToken();
@@ -298,6 +300,41 @@ public class AnalisadorSintatico {
             proximoToken();
         }
     }
+
+
+    public static void ListaParam() {
+        TipoId();
+        if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {
+            proximoToken();
+            ListaParam2();
+        }
+    }
+
+    //CORRIGIR
+    public static void ListaParam2() {
+
+        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
+        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
+        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
+        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
+        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
+        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
+        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
+        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
+        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
+
+        if (token.equals("*")) {
+            proximoToken();
+            TipoId();
+
+            if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {
+                proximoToken();
+                ListaParam2();
+            }
+        }
+    }
+
+
 
     public static void Declaracao() {
         DefVariavel();
