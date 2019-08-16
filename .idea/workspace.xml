@@ -2,12 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="30ac689e-6b6a-4adc-8243-f93874099d4f" name="Default Changelist" comment="Entra no bloco CONSTANTES, mas tem um problema na atribuição">
-      <change afterPath="$PROJECT_DIR$/teste/entrada4.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teste/entrada4a.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/teste/saida4a.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/Compilador.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/AnalisadorLexico.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/token/PalavrasReservadas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/token/Token.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/AnalisadorSintatico/AnalisadorSintatico.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/AnalisadorSintatico/AnalisadorSintatico.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AnalisadorSintatico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalisadorSintatico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/AnalisadorSintatico/AnalisadorSintatico.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AnalisadorSintatico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/AnalisadorSintatico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste/entrada1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/teste/entrada1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste/entrada2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/teste/entrada2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste/entrada3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste/entrada4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste/entrada4a.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste/saida1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste/saida2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste/saida3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste/saida4a.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste/saida5.txt" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,57 +34,44 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/AnalisadorSintatico.java">
+        <entry file="file://$PROJECT_DIR$/src/controller/Compilador.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="312" column="26" lean-forward="true" selection-start-line="312" selection-start-column="26" selection-end-line="312" selection-end-column="26" />
+            <state relative-caret-position="119">
+              <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#8364#8365#0" expanded="true" />
-                <element signature="e#8393#8394#0" expanded="true" />
+                <element signature="e#0#768#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/teste/entrada4a.txt">
+        <entry file="file://$PROJECT_DIR$/src/model/AnalisadorLexico.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="14" selection-end-column="9" />
+            <state relative-caret-position="68">
+              <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+              <folding>
+                <element signature="e#0#12292#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#711#712#0" expanded="true" />
+                <element signature="e#751#752#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/teste/saida4a.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/teste/entrada4.txt">
+        <entry file="file://$PROJECT_DIR$/src/model/AnalisadorSintatico.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/teste/saida3.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/teste/entrada3.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="25" column="58" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
+            <state relative-caret-position="51">
+              <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1143#1144#0" expanded="true" />
+                <element signature="e#1184#1185#0" expanded="true" />
+                <element signature="e#9535#9536#0" expanded="true" />
+                <element signature="e#9564#9565#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,7 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>proximoToken</find>
       <find>ValorConst</find>
       <find>PrimeiroDefConstante</find>
       <find>DefConstante()</find>
@@ -96,6 +94,16 @@
       <find>DefGlobal</find>
       <find>System.out.println(numeroToken);</find>
       <find>//</find>
+      <find>listaTokens</find>
+      <find>tokens</find>
+      <find>listaT</find>
+      <find>Anali</find>
+      <find>Analisador</find>
+      <find>getClasse</find>
+      <find>tokenAnterior</find>
+      <find>numeroArquivo</find>
+      <find>$</find>
+      <find>proximoToken</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -106,25 +114,30 @@
       <list>
         <option value="$PROJECT_DIR$/src/AnalisadorSintatica.java" />
         <option value="$PROJECT_DIR$/teste/saida1.txt" />
-        <option value="$PROJECT_DIR$/teste/entrada1.txt" />
         <option value="$PROJECT_DIR$/teste/entrada2.txt" />
         <option value="$PROJECT_DIR$/teste/saida2.txt" />
         <option value="$PROJECT_DIR$/src/AnalisadorSintatico.java" />
+        <option value="$PROJECT_DIR$/src/token/PalavrasReservadas.java" />
+        <option value="$PROJECT_DIR$/src/AnalisadorLexico.java" />
+        <option value="$PROJECT_DIR$/src/token/Token.java" />
+        <option value="$PROJECT_DIR$/teste/entrada1.txt" />
+        <option value="$PROJECT_DIR$/src/model/AnalisadorLexico.java" />
+        <option value="$PROJECT_DIR$/src/model/AnalisadorSintatico.java" />
+        <option value="$PROJECT_DIR$/src/controller/Compilador.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1066" />
+    <option name="width" value="1386" />
+    <option name="height" value="788" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -140,6 +153,18 @@
             <path>
               <item name="AnalisadorSintatico" type="b2602c69:ProjectViewProjectNode" />
               <item name="AnalisadorSintatico" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AnalisadorSintatico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AnalisadorSintatico" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AnalisadorSintatico" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AnalisadorSintatico" type="462c0819:PsiDirectoryNode" />
               <item name="teste" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -147,16 +172,22 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AnalisadorLexico" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\camil\Git\AnalisadorSintatico\teste" />
+      <recent name="C:\Users\camil\Git\AnalisadorSintatico\src\auxtest" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\reini\Documents\GitHub\AnalisadorSintatico\teste" />
     </key>
@@ -173,16 +204,30 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Compilador">
     <configuration name="AnalisadorSintatico" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AnalisadorSintatico" />
+      <option name="MAIN_CLASS_NAME" value="model.AnalisadorSintatico" />
       <module name="AnalisadorSintatico" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Compilador" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="controller.Compilador" />
+      <module name="AnalisadorSintatico" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Compilador" />
         <item itemvalue="Application.AnalisadorSintatico" />
       </list>
     </recent_temporary>
@@ -223,10 +268,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1386" height="788" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1098081" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16214179" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -234,14 +279,14 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2454448" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2636656" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.22900763" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.045801528" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50075644" side_tool="true" weight="0.15875614" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3289689" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -287,106 +332,142 @@
     <MESSAGE value="DefPrincipal não testado" />
     <option name="LAST_COMMIT_MESSAGE" value="DefPrincipal não testado" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/AnalisadorSintatico.java</url>
-          <line>199</line>
-          <properties />
-          <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/AnalisadorSintatico.java</url>
-          <line>197</line>
-          <properties />
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/AnalisadorSintatico.java</url>
-          <line>200</line>
-          <properties />
-          <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/AnalisadorSintatico.java</url>
-          <line>203</line>
-          <properties />
-          <option name="timeStamp" value="83" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/teste/saida1.txt">
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="13" selection-end-column="8" />
+        <state relative-caret-position="425">
+          <caret line="25" column="58" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teste/saida2.txt">
+    <entry file="file://$PROJECT_DIR$/src/token/PalavrasReservadas.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+        <state relative-caret-position="340">
+          <caret line="20" column="40" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teste/saida4a.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teste/saida3.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teste/saida2.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teste/saida1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="34" lean-forward="true" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/teste/entrada2.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/teste/entrada1.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="25" column="58" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/teste/saida4.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/teste/saida4a.txt">
+    <entry file="file://$PROJECT_DIR$/teste/entrada1.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/teste/entrada3.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/teste/saida3.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/teste/entrada4.txt">
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/util/Objects.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+        <state relative-caret-position="56">
+          <caret line="371" column="29" selection-start-line="371" selection-start-column="29" selection-end-line="371" selection-end-column="29" />
+          <folding>
+            <element signature="e#13877#13878#0" expanded="true" />
+            <element signature="e#13945#13946#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/teste/entrada4a.txt">
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="14" selection-end-column="9" />
+        <state relative-caret-position="56">
+          <caret line="457" column="16" selection-start-line="457" selection-start-column="16" selection-end-line="457" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AnalisadorSintatico.java">
+    <entry file="file://$PROJECT_DIR$/teste/entrada1.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="312" column="26" lean-forward="true" selection-start-line="312" selection-start-column="26" selection-end-line="312" selection-end-column="26" />
+        <state relative-caret-position="272">
+          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/token/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="58" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="58" />
+          <folding>
+            <element signature="e#445#446#0" expanded="true" />
+            <element signature="e#479#480#0" expanded="true" />
+            <element signature="e#592#593#0" expanded="true" />
+            <element signature="e#626#627#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teste/entrada2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teste/saida2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="36" column="20" lean-forward="true" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/teste/saida1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="23" column="31" lean-forward="true" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/AnalisadorLexico.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#12292#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#711#712#0" expanded="true" />
+            <element signature="e#751#752#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/AnalisadorSintatico.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8364#8365#0" expanded="true" />
-            <element signature="e#8393#8394#0" expanded="true" />
+            <element signature="e#1143#1144#0" expanded="true" />
+            <element signature="e#1184#1185#0" expanded="true" />
+            <element signature="e#9535#9536#0" expanded="true" />
+            <element signature="e#9564#9565#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/Compilador.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#768#0" expanded="true" />
           </folding>
         </state>
       </provider>

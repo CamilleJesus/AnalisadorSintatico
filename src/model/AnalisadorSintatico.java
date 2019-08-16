@@ -1,28 +1,39 @@
-import jdk.swing.interop.SwingInterOpUtils;
+/*
+Autores: Camille Jesús e Reinildo Souza
+Componente Curricular: EXA869 - MI Processadores de Linguagem de Programação (P03)
+Data: 18/08/2019
+*/
+package model;
 
-import java.io.*;
-import java.lang.reflect.Array;
+import token.Token;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 
 
 public class AnalisadorSintatico {
-    private static ArrayList<String> PrimeiroDefInicio = new ArrayList<>();
-    private static ArrayList<String> PrimeiroDefGlobal = new ArrayList<>();
-    private static ArrayList<String> PrimeiroDefConstante = new ArrayList<>();
-    private static ArrayList<String> PrimeiroDefPrincipal = new ArrayList<>();
-    private static ArrayList<String> PrimeiroDefGlobal2 = new ArrayList<>();
-    private static ArrayList<String> PrimeiroDefMetodo = new ArrayList<>();
-    private static ArrayList<String> PrimeiroConstante = new ArrayList<>();
-    private static ArrayList<String> PrimeiroListaConst = new ArrayList<>();
-    private static ArrayList<String> PrimeiroTipoId = new ArrayList<>();
-    private static ArrayList<String[]> listaTokens = new ArrayList<>();
-    private static String token;
-    private static int tokenAtual = 0, tokenAnterior = 0, numeroArquivo = 0;
+    private ArrayList<String> PrimeiroDefInicio = new ArrayList<>();
+    private ArrayList<String> PrimeiroDefGlobal = new ArrayList<>();
+    private ArrayList<String> PrimeiroDefConstante = new ArrayList<>();
+    private ArrayList<String> PrimeiroDefPrincipal = new ArrayList<>();
+    private ArrayList<String> PrimeiroDefGlobal2 = new ArrayList<>();
+    private ArrayList<String> PrimeiroDefMetodo = new ArrayList<>();
+    private ArrayList<String> PrimeiroConstante = new ArrayList<>();
+    private ArrayList<String> PrimeiroListaConst = new ArrayList<>();
+    private ArrayList<String> PrimeiroTipoId = new ArrayList<>();
+    private ArrayList<Token> listaTokens = new ArrayList<>();
+    private String token;
+    private int tokenAtual = 0, tokenAnterior = 0, numeroArquivo = 0;
+    private ArrayList<ArrayList<Token>> listasTokens = new ArrayList<>();
 
-    public static void regras() {
+    public void setListaTokens(ArrayList<Token> listaTokens) {
+        this.listaTokens = listaTokens;
+    }
+
+    public void setListasTokens(ArrayList<ArrayList<Token>> listaListasTokens) {
+        this.listasTokens = listaListasTokens;
+    }
+
+    public AnalisadorSintatico() {
         PrimeiroDefInicio.add("programa");
 
         PrimeiroDefGlobal.add("constantes");
@@ -51,45 +62,17 @@ public class AnalisadorSintatico {
         PrimeiroTipoId.add("boleano");
     }
 
-    public static void main(String[] args) {
-        System.out.println("\n -- ANALISADOR SINTÁTICO -- ");
-        regras();
-        lerArquivos();
-    }
+    public void mainSintatico() {
 
-    public static void lerArquivos() {
-        File arquivos[], diretorio = new File("teste/");
-        arquivos = diretorio.listFiles();
-
-        for (int i = 0; i < arquivos.length; i++){
-
-            if (arquivos[i].toString().contains("saida")) {
-
-                try {
-                    numeroArquivo += 1;
-                    lerArquivo(arquivos[i]);
-                    limpaEstruturas();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        for (int i = 0; i < listasTokens.size(); i++) {
+            numeroArquivo = i + 1;
+            setListaTokens(listasTokens.get(i));
+            procedimentosGramatica();
+            limparEstruturas();
         }
     }
 
-    public static void lerArquivo(File nomeArquivo) throws IOException {
-        String linha;
-        BufferedReader buffer = new BufferedReader(new FileReader(nomeArquivo));
-
-        //Lê todas as linhas do arquivo até o final:
-        while ((linha = buffer.readLine()) != null) {
-
-            if (linha.contains("<")) {
-                String[] linhaToken = linha.replace("<", "").replace(">", "").replace(" ", "").split(",");
-                listaTokens.add(linhaToken);
-            }
-        }
-        buffer.close();
-
+    public void procedimentosGramatica() {
         proximoToken();
         Inicio();
 
@@ -100,15 +83,15 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void proximoToken() {
-        token = (listaTokens.get(tokenAtual))[1];
+    public void proximoToken() {
+        token = (listaTokens.get(tokenAtual)).getLexema();
         System.out.println(tokenAtual);
         System.out.println(token);
         tokenAnterior = tokenAtual;
         tokenAtual++;
     }
 
-    public static void Inicio() {
+    public void Inicio() {
 
         if (token.equals("programa")) {
             proximoToken();
@@ -126,7 +109,7 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void DefGlobal() {
+    public void DefGlobal() {
 
         if (PrimeiroDefConstante.contains(token)) {
             DefConstante();
@@ -135,7 +118,7 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void DefGlobal2() {
+    public void DefGlobal2() {
 
         if (PrimeiroDefMetodo.contains(token)) {
             DefMetodo();
@@ -143,7 +126,7 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void DefConstante() {
+    public void DefConstante() {
 
         if (token.equals("constantes")) {
             proximoToken();
@@ -159,7 +142,7 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void DefPrincipal() {
+    public void DefPrincipal() {
 
         if (token.equals("metodo")) {
             proximoToken();
@@ -192,12 +175,12 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void DefMetodo() {
+    public void DefMetodo() {
 
         if (token.equals("metodo")) {
             proximoToken();
 
-            if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {
+            if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
                 proximoToken();
 
                 if (token.equals("(")) {
@@ -228,7 +211,7 @@ public class AnalisadorSintatico {
 
     }
 
-    public static void ListaConst() {
+    public void ListaConst() {
 
         if (PrimeiroConstante.contains(token)) {
             Constante();
@@ -240,14 +223,14 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void ListaConst2() {
+    public void ListaConst2() {
 
         if (PrimeiroListaConst.contains(token)) {
             ListaConst();
         }
     }
 
-    public static void Constante() {
+    public void Constante() {
 
         if (PrimeiroTipoId.contains(token)) {
             TipoId();
@@ -256,7 +239,7 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void ListaAtribuicaoConst() {
+    public void ListaAtribuicaoConst() {
 
         if (token.equals(",")) {
             proximoToken();
@@ -264,9 +247,9 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void AtribuicaoConst() {
+    public void AtribuicaoConst() {
 
-        if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {
+        if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
             proximoToken();
 
             if (token.equals("=")) {
@@ -276,7 +259,7 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void Tipo() {
+    public void Tipo() {
 
         if ((token.equals("vazio"))) {
             proximoToken();
@@ -285,49 +268,39 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void TipoId() {
+    public void TipoId() {
 
         if ((token.equals("inteiro")) || (token.equals("real")) || (token.equals("texto")) || (token.equals("boleano"))) {
             proximoToken();
         }
     }
 
-    public static void Valor() {
+    public void Valor() {
 
-        if ((listaTokens.get(tokenAnterior)[0].equals("NUMERO")) || (listaTokens.get(tokenAnterior)[0].equals("CADEIA_CARACTERES"))) {
+        if ((listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             proximoToken();
-        } else if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {
+        } else if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
             proximoToken();
         }
     }
 
 
-    public static void ListaParam() {
+    public void ListaParam() {
         TipoId();
-        if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {
+        if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
             proximoToken();
             ListaParam2();
         }
     }
 
     //CORRIGIR
-    public static void ListaParam2() {
+    public void ListaParam2() {
 
-        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
-        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
-        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
-        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
-        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
-        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
-        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
-        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
-        //CORRIGIR ESSE '*' ABAIXO, COLOQUEI ELE AÍ ENQUANTO RESOLVIA O PROBLEMA DAS VÍRGULAS NOS TOKENS
-
-        if (token.equals("*")) {
+        if (token.equals(",")) {
             proximoToken();
             TipoId();
 
-            if (listaTokens.get(tokenAnterior)[0].equals("IDENTIFICADOR")) {
+            if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
                 proximoToken();
                 ListaParam2();
             }
@@ -336,11 +309,11 @@ public class AnalisadorSintatico {
 
 
 
-    public static void Declaracao() {
+    public void Declaracao() {
         DefVariavel();
     }
 
-    public static void DefVariavel() {
+    public void DefVariavel() {
 
         if (token.equals("variaveis")) {
             proximoToken();
@@ -356,7 +329,7 @@ public class AnalisadorSintatico {
         }
     }
 
-    public static void limpaEstruturas() {
+    public void limparEstruturas() {
         listaTokens.clear();
         tokenAnterior = 0;
         tokenAtual = 0;

@@ -4,4 +4,15 @@ programa
 		inteiro a = 0;
 		texto padrao = "Hello World!";
 	}
+
+	metodo principal() : vazio {
+
+	}
+
+	metodo calcular( inteiro a ) : inteiro {
+	    variaveis {
+	    
+	    }
+
+    }
 }
