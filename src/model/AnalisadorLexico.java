@@ -216,7 +216,7 @@ public class AnalisadorLexico {
             return "OPERADOR_RELACIONAL";
         } else if (lexema.matches("!|(&&)|(\\|\\|)")) {
             return "OPERADOR_LOGICO";
-        } else if (lexema.matches(":|;|,|\\(|\\)|[|]|\\{|}|\\.")) {
+        } else if (lexema.matches(":|;|,|\\(|\\)|\\[|]|\\{|}|\\.")) {
             return "DELIMITADOR";
         } else if (lexema.matches("\"((\\\\\")|[^\"]|\\n)*\"")) {
             return "CADEIA_CARACTERES";
