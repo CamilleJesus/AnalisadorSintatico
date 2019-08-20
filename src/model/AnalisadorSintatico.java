@@ -191,6 +191,7 @@ public class AnalisadorSintatico {
 
                 if (token.equals("(")) {
                     proximoToken();
+                    ListaParam();
 
                     if (token.equals(")")) {
                         proximoToken();
@@ -301,7 +302,7 @@ public class AnalisadorSintatico {
 
         if ((token.equals("vazio"))) {
             proximoToken();
-        } else {
+        } else if (PrimeiroTipoId.contains(token)) {
             TipoId();
         }
     }
@@ -317,7 +318,17 @@ public class AnalisadorSintatico {
 
         if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
             proximoToken();
-        } else {
+        } else if (token.equals("(")) {
+            proximoToken();
+
+            if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
+                Expressao();
+
+                if (token.equals(")")) {
+                    proximoToken();
+                }
+            }
+        } else if((listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso"))) {
             ValorConst();
         }
     }
@@ -356,7 +367,7 @@ public class AnalisadorSintatico {
 
     public void ListaArg() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso"))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             Atribuicao();
             ListaArg2();
         }
@@ -388,10 +399,7 @@ public class AnalisadorSintatico {
         } else if (PrimeiroDefLeia.contains(token)) {
             DefLeia();
             Declaracao();
-        } else if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {   //COMO FATORAR?
-            DefChamada();
-            Declaracao();
-        } else if ((token.equals(";")) || (token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        } else if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             DefExpressao();
             Declaracao();
         } else if (PrimeiroDefResultado.contains(token)) {
@@ -478,7 +486,7 @@ public class AnalisadorSintatico {
 
     public void Inicializacao() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             Atribuicao();
         } else if (token.equals("{")) {
             proximoToken();
@@ -502,7 +510,7 @@ public class AnalisadorSintatico {
 
     public void ListaInicializacaoVar() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             Inicializacao();
             ListaInicializacaoVar2();
         }
@@ -535,7 +543,7 @@ public class AnalisadorSintatico {
 
     public void Declarador3() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             ExprAtribuicao();
 
             if (token.equals("]")) {
@@ -660,39 +668,6 @@ public class AnalisadorSintatico {
         }
     }
 
-    public void DefChamada() {
-
-        if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
-            proximoToken();
-
-            if (token.equals("(")) {
-                proximoToken();
-                DefChamada2();
-            }
-        }
-    }
-
-    public void DefChamada2() {
-
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
-            ListaArg();
-
-            if (token.equals(")")) {
-                proximoToken();
-
-                if (token.equals(";")) {
-                    proximoToken();
-                }
-            }
-        } else if (token.equals(")")) {
-            proximoToken();
-
-            if (token.equals(";")) {
-                proximoToken();
-            }
-        }
-    }
-
     public void DefResultado() {
 
         if (token.equals("resultado")) {
@@ -709,7 +684,7 @@ public class AnalisadorSintatico {
 
         if (token.equals(";")) {
             proximoToken();
-        } else if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        } else if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             Expressao();
 
             if (token.equals(";")) {
@@ -720,7 +695,7 @@ public class AnalisadorSintatico {
 
     public void Expressao() {
 
-        if (PrimeiroAtribuicao.contains(token)) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             Atribuicao();
             Expressao2();
         }
@@ -737,7 +712,7 @@ public class AnalisadorSintatico {
 
     public void Atribuicao() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             ExprAtribuicao();
             Atribuicao2();
         }
@@ -754,14 +729,14 @@ public class AnalisadorSintatico {
 
     public void ExprAtribuicao() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             ExprLogicaOu();
         }
     }
 
     public void ExprLogicaOu() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             ExprLogicaE();
             ExprLogicaOu2();
         }
@@ -778,7 +753,7 @@ public class AnalisadorSintatico {
 
     public void ExprLogicaE() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             ExprRelacionalIgual();
             ExprLogicaE2();
         }
@@ -795,7 +770,7 @@ public class AnalisadorSintatico {
 
     public void ExprRelacionalIgual() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             ExprRelacionalOutras();
             ExprRelacionalIgual2();
         }
@@ -812,7 +787,7 @@ public class AnalisadorSintatico {
 
     public void ExprRelacionalOutras() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             ExprAritmeticaAd();
             ExprRelacionalOutras2();
         }
@@ -829,7 +804,7 @@ public class AnalisadorSintatico {
 
     public void ExprAritmeticaAd() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             ExprAritmeticaMult();
             ExprAritmeticaAd2();
         }
@@ -846,7 +821,7 @@ public class AnalisadorSintatico {
 
     public void ExprAritmeticaMult() {
 
-        if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             ExprUnaria();
             ExprAritmeticaMult2();
         }
@@ -874,7 +849,7 @@ public class AnalisadorSintatico {
     public void ExprPosfixa() {
 
         if ((listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
-            Fator();
+            Valor();
             ExprPosfixa2();
         }
     }
@@ -949,24 +924,10 @@ public class AnalisadorSintatico {
 
         if (token.equals(")")) {
             proximoToken();
-        } else if ((token.equals("++")) || (token.equals("--")) || (token.equals("!")) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso")) || (token.equals("("))) {
+        } else if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             ListaArg();
 
             if(token.equals(")")) {
-                proximoToken();
-            }
-        }
-    }
-
-    public void Fator() {
-
-        if ((listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso"))) {
-            proximoToken();
-        } else if (token.equals("(")) {
-            proximoToken();
-            Expressao();
-
-            if (token.equals(")")) {
                 proximoToken();
             }
         }

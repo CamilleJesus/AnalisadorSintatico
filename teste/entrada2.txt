@@ -1,12 +1,12 @@
 programa {
 
     constantes {
-        inteiro a = 1;
-        inteiro b = 12;
-        real c = 1.50, d = 1;
-        boleano e = verdadeiro, f = falso;
-        texto g = "casa", h = "palavra";
-        inteiro const1 = 25;
+        inteiro c1 = 1;
+        inteiro c2 = 12;
+        real c3 = 1.50, c4 = 1;
+        boleano c5 = verdadeiro, c6 = falso;
+        texto c7 = "casa", c8 = "palavra";
+        inteiro c9 = 25;
     }
 
     metodo principal() : vazio {
@@ -17,9 +17,9 @@ programa {
             inteiro c = b;
             inteiro d = 2 , e = 3;
             inteiro f = 4, g;
-            real c = 1.50, d = 1;
-            boleano e = verdadeiro, f = falso;
-            texto g = "casa", h = "palavra";
+            real h = 1.50, i = 1;
+            boleano j = verdadeiro, k = falso;
+            texto l = "casa", m = "palavra";
             inteiro vet[5] = {1, 2, 3, 4, 5};
             real mat[4][5];
             inteiro var1;
@@ -32,7 +32,7 @@ programa {
         }
 
         enquanto (a != b) {
-            b=c+a;
+            b = c+a;
             d++;
         }
 
@@ -41,7 +41,7 @@ programa {
         }
     }
 
-    metodo calcularArea(inteiro base, inteiro altura) : inteiro{
+    metodo calcularArea( inteiro base, inteiro altura) : inteiro{
         variaveis {
             inteiro area;
         }
