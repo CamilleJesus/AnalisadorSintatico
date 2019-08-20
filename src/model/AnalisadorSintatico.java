@@ -7,6 +7,9 @@ package model;
 
 import token.Token;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -14,10 +17,11 @@ public class AnalisadorSintatico {
     private ArrayList<String>  PrimeiroDefConstante, PrimeiroDefMetodo, PrimeiroTipoId, PrimeiroAtribuicao, PrimeiroDefVariavel;
     private ArrayList<String> PrimeiroDefSe, PrimeiroDefEnquanto, PrimeiroDefEscreva, PrimeiroDefLeia, PrimeiroDefResultado;
     private ArrayList<String> PrimeiroOpRelacionalIgual, PrimeiroOpRelacionalOutros, PrimeiroOpAritmeticoAd, PrimeiroOpAritmeticoMul;
-    private ArrayList<String> PrimeiroOpUnario, PrimeiroOpPosfixo;
+    private ArrayList<String> PrimeiroOpUnario, PrimeiroOpPosfixo, listaErros, PrimeiroDefPrincipal;
     private ArrayList<Token> listaTokens;
     private String token;
     private int tokenAtual = 0, tokenAnterior = 0, numeroArquivo = 0;
+    private long linhaErro = 0;
     private ArrayList<ArrayList<Token>> listasTokens;
 
     public void setListaTokens(ArrayList<Token> listaTokens) {
@@ -30,6 +34,7 @@ public class AnalisadorSintatico {
 
     public AnalisadorSintatico() {
         PrimeiroDefConstante = new ArrayList<>();
+        PrimeiroDefPrincipal = new ArrayList<>();
         PrimeiroDefMetodo = new ArrayList<>();
         PrimeiroTipoId = new ArrayList<>();
         PrimeiroAtribuicao = new ArrayList<>();
@@ -45,10 +50,13 @@ public class AnalisadorSintatico {
         PrimeiroOpAritmeticoMul = new ArrayList<>();
         PrimeiroOpUnario = new ArrayList<>();
         PrimeiroOpPosfixo = new ArrayList<>();
+        listaErros = new ArrayList<>();
         listaTokens = new ArrayList<>();
         listasTokens = new ArrayList<>();
 
         PrimeiroDefConstante.add("constantes");
+
+        PrimeiroDefPrincipal.add("metodo");
 
         PrimeiroDefMetodo.add("metodo");
 
@@ -104,10 +112,16 @@ public class AnalisadorSintatico {
     public void mainSintatico() {
 
         for (int i = 0; i < listasTokens.size(); i++) {
-            numeroArquivo = i + 1;
-            setListaTokens(listasTokens.get(i));
-            procedimentosGramatica();
-            limparEstruturas();
+
+            try {
+                numeroArquivo = i + 1;
+                setListaTokens(listasTokens.get(i));
+                procedimentosGramatica();
+                escreverArquivo();
+                limparEstruturas();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -123,7 +137,9 @@ public class AnalisadorSintatico {
     }
 
     public void proximoToken() {
-        token = (listaTokens.get(tokenAtual)).getLexema();
+        Token t = listaTokens.get(tokenAtual);
+        token = t.getLexema();
+        linhaErro = t.getLinha();
         System.out.println(tokenAtual);
         System.out.println(token);
         tokenAnterior = tokenAtual;
@@ -141,10 +157,14 @@ public class AnalisadorSintatico {
 
                 if (token.equals("}")) {
                     proximoToken();
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", "}"));
                 }
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "{"));
             }
         } else {
-            System.out.println("Erro no início do programa.");
+            listaErros.add(mensagemErro(linhaErro, "palavra", "programa"));
         }
     }
 
@@ -154,6 +174,11 @@ public class AnalisadorSintatico {
             DefConstante();
             DefPrincipal();
             DefGlobal2();
+        } else if (PrimeiroDefPrincipal.contains(token)) {
+            DefPrincipal();
+            DefGlobal2();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "bloco", "principal"));
         }
     }
 
@@ -176,8 +201,14 @@ public class AnalisadorSintatico {
 
                 if (token.equals("}")) {
                     proximoToken();
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", "}"));
                 }
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "{"));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "palavra", "constante"));
         }
     }
 
@@ -206,12 +237,26 @@ public class AnalisadorSintatico {
 
                                 if (token.equals("}")) {
                                     proximoToken();
+                                } else {
+                                    listaErros.add(mensagemErro(linhaErro, "simbolo", "}"));
                                 }
+                            } else {
+                                listaErros.add(mensagemErro(linhaErro, "simbolo", "{"));
                             }
+                        } else {
+                            listaErros.add(mensagemErro(linhaErro, "simbolo", ":"));
                         }
+                    } else {
+                        listaErros.add(mensagemErro(linhaErro, "simbolo", ")"));
                     }
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", "("));
                 }
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "palavra", "principal"));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "palavra", "metodo"));
         }
     }
 
@@ -240,14 +285,27 @@ public class AnalisadorSintatico {
 
                                 if (token.equals("}")) {
                                     proximoToken();
+                                } else {
+                                    listaErros.add(mensagemErro(linhaErro, "simbolo", "}"));
                                 }
+                            } else {
+                                listaErros.add(mensagemErro(linhaErro, "simbolo", "{"));
                             }
+                        } else {
+                            listaErros.add(mensagemErro(linhaErro, "simbolo", ":"));
                         }
+                    } else {
+                        listaErros.add(mensagemErro(linhaErro, "simbolo", ")"));
                     }
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", "("));
                 }
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "identificador", "método"));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "palavra", "metodo"));
         }
-
     }
 
     public void ListaConst() {
@@ -258,7 +316,11 @@ public class AnalisadorSintatico {
             if (token.equals(";")) {
                 proximoToken();
                 ListaConst2();
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", ";"));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "tipo", ""));
         }
     }
 
@@ -294,7 +356,11 @@ public class AnalisadorSintatico {
             if (token.equals("=")) {
                 proximoToken();
                 ValorConst();
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "="));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "identificador", "constante"));
         }
     }
 
@@ -304,6 +370,8 @@ public class AnalisadorSintatico {
             proximoToken();
         } else if (PrimeiroTipoId.contains(token)) {
             TipoId();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "tipo", ""));
         }
     }
 
@@ -326,10 +394,16 @@ public class AnalisadorSintatico {
 
                 if (token.equals(")")) {
                     proximoToken();
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", ")"));
                 }
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "tipo", "retorno"));
             }
         } else if((listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso"))) {
             ValorConst();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "valor", ""));
         }
     }
 
@@ -348,6 +422,8 @@ public class AnalisadorSintatico {
             if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
                 proximoToken();
                 ListaParam2();
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "identificador", "parâmetro"));
             }
         }
     }
@@ -361,6 +437,8 @@ public class AnalisadorSintatico {
             if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
                 proximoToken();
                 ListaParam2();
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "identificador", "parâmetro"));
             }
         }
     }
@@ -370,6 +448,8 @@ public class AnalisadorSintatico {
         if ((PrimeiroAtribuicao.contains(token)) || (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) || (listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES"))) {
             Atribuicao();
             ListaArg2();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "valor", ""));
         }
     }
 
@@ -419,8 +499,14 @@ public class AnalisadorSintatico {
 
                 if (token.equals("}")) {
                     proximoToken();
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", "}"));
                 }
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "{"));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "palavra", "variaveis"));
         }
     }
 
@@ -429,6 +515,8 @@ public class AnalisadorSintatico {
         if (PrimeiroTipoId.contains(token)) {
             DeclaracaoVar();
             ListaVar2();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, " ", "Variável esperada não encontrada."));
         }
     }
 
@@ -450,6 +538,8 @@ public class AnalisadorSintatico {
 
             if (token.equals(";")) {
                 proximoToken();
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", ";"));
             }
         }
     }
@@ -492,6 +582,8 @@ public class AnalisadorSintatico {
             proximoToken();
             ListaInicializacaoVar();
             Inicializacao2();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "valor", ""));
         }
     }
 
@@ -504,7 +596,11 @@ public class AnalisadorSintatico {
 
             if (token.equals("}")) {
                 proximoToken();
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "}"));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "simbolo", ", ou }"));
         }
     }
 
@@ -518,7 +614,7 @@ public class AnalisadorSintatico {
 
     public void ListaInicializacaoVar2() {
 
-        if(token.equals(",")) {
+        if (token.equals(",")) {
             proximoToken();
             Inicializacao();
             ListaInicializacaoVar2();
@@ -530,6 +626,8 @@ public class AnalisadorSintatico {
         if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
             proximoToken();
             Declarador2();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "identificador", "variável"));
         }
     }
 
@@ -549,10 +647,14 @@ public class AnalisadorSintatico {
             if (token.equals("]")) {
                 proximoToken();
                 Declarador2();
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "]"));
             }
         } else if(token.equals("]")) {
             proximoToken();
             Declarador2();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "valor", ""));
         }
     }
 
@@ -578,11 +680,23 @@ public class AnalisadorSintatico {
                             if (token.equals("}")) {
                                 proximoToken();
                                 DefSenao();
+                            } else {
+                                listaErros.add(mensagemErro(linhaErro, "simbolo", "}"));
                             }
+                        } else {
+                            listaErros.add(mensagemErro(linhaErro, "simbolo", "{"));
                         }
+                    } else {
+                        listaErros.add(mensagemErro(linhaErro, "palavra", "entao"));
                     }
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", ")"));
                 }
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "("));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "palavra", "se"));
         }
     }
 
@@ -597,7 +711,11 @@ public class AnalisadorSintatico {
 
                 if (token.equals("}")) {
                     proximoToken();
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", "}"));
                 }
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "{"));
             }
         }
     }
@@ -620,11 +738,20 @@ public class AnalisadorSintatico {
 
                         if (token.equals("}")) {
                             proximoToken();
+                        } else {
+                            listaErros.add(mensagemErro(linhaErro, "simbolo", "}"));
                         }
+                    } else {
+                        listaErros.add(mensagemErro(linhaErro, "simbolo", "{"));
                     }
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", ")"));
                 }
-
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "("));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "palavra", "enquanto"));
         }
     }
 
@@ -642,9 +769,17 @@ public class AnalisadorSintatico {
 
                     if (token.equals(";")) {
                         proximoToken();
+                    } else {
+                        listaErros.add(mensagemErro(linhaErro, "simbolo", ";"));
                     }
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", ")"));
                 }
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "("));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "palavra", "escreva"));
         }
     }
 
@@ -662,9 +797,17 @@ public class AnalisadorSintatico {
 
                     if (token.equals(";")) {
                         proximoToken();
+                    } else {
+                        listaErros.add(mensagemErro(linhaErro, "simbolo", ";"));
                     }
+                } else {
+                    listaErros.add(mensagemErro(linhaErro, "simbolo", ")"));
                 }
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", "("));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "palavra", "leia"));
         }
     }
 
@@ -676,7 +819,11 @@ public class AnalisadorSintatico {
 
             if (token.equals(";")) {
                 proximoToken();
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", ";"));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "palavra", "resultado"));
         }
     }
 
@@ -689,6 +836,8 @@ public class AnalisadorSintatico {
 
             if (token.equals(";")) {
                 proximoToken();
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", ";"));
             }
         }
     }
@@ -933,8 +1082,46 @@ public class AnalisadorSintatico {
         }
     }
 
+    public static String mensagemErro (long linhaErro, String tipo, String valor) {
+
+        if (tipo.equals("simbolo")) {
+            return ("Erro sintático na linha " + linhaErro + ". Símbolo esperado não encontrado: " + valor + ".");
+        } else if (tipo.equals("numero")) {
+            return ("Erro sintático na linha " + linhaErro + ". Número esperado não encontrado: " + valor + ".");
+        } else if (tipo.equals("palavra")) {
+            return ("Erro sintático na linha " + linhaErro + ". Palavra reservada esperada não encontrada: " + valor + ".");
+        } else if (tipo.equals("identificador")) {
+            return ("Erro sintático na linha " + linhaErro + ". Identificador de " + valor + " esperado não encontrado.");
+        } else if (tipo.equals("tipo")) {
+            return ("Erro sintático na linha " + linhaErro + ". Tipo esperado não encontrado.");
+        } else if (tipo.equals("valor")) {
+            return ("Erro sintático na linha " + linhaErro + ". Valor esperado não encontrado.");
+        } else if (tipo.equals("bloco")) {
+            return ("Erro sintático na linha " + linhaErro + ". Bloco de comando " + valor + " esperado não encontrado.");
+        } else if (tipo.equals(" ")) {
+            return ("Erro sintático na linha " + linhaErro + "." + valor);
+        }
+        return "";
+    }
+
+    public void escreverArquivo() throws IOException {
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("teste/saidaSintatico" + numeroArquivo + ".txt"));
+
+        if (listaErros.isEmpty()) {
+            buffWrite.append("\nSucesso!");
+        } else {
+
+            for (int i = 0; i < listaErros.size(); i++) {
+                buffWrite.append("\n" + listaErros.get(i));
+            }
+        }
+        buffWrite.close();
+        System.out.println("\nResultado da análise sintático no arquivo: saidaSintatico" + numeroArquivo + ".txt");
+    }
+
     public void limparEstruturas() {
         listaTokens.clear();
+        listaErros.clear();
         tokenAnterior = 0;
         tokenAtual = 0;
     }

@@ -1,0 +1,2 @@
+
+Erro sintático na linha 23. Símbolo esperado não encontrado: , ou }.
