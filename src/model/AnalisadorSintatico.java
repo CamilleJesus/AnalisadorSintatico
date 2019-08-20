@@ -178,7 +178,7 @@ public class AnalisadorSintatico {
             DefPrincipal();
             DefGlobal2();
         } else {
-            listaErros.add(mensagemErro(linhaErro, "bloco", "principal"));
+            listaErros.add(mensagemErro(linhaErro, "palavra", "principal"));
         }
     }
 
@@ -208,7 +208,7 @@ public class AnalisadorSintatico {
                 listaErros.add(mensagemErro(linhaErro, "simbolo", "{"));
             }
         } else {
-            listaErros.add(mensagemErro(linhaErro, "palavra", "constante"));
+            listaErros.add(mensagemErro(linhaErro, "palavra", "constantes"));
         }
     }
 
@@ -337,6 +337,8 @@ public class AnalisadorSintatico {
             TipoId();
             AtribuicaoConst();
             ListaAtribuicaoConst();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "tipo", ""));
         }
     }
 
@@ -379,6 +381,8 @@ public class AnalisadorSintatico {
 
         if ((token.equals("inteiro")) || (token.equals("real")) || (token.equals("texto")) || (token.equals("boleano"))) {
             proximoToken();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "tipo", ""));
         }
     }
 
@@ -411,6 +415,8 @@ public class AnalisadorSintatico {
 
         if ((listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso"))) {
             proximoToken();
+        }  else {
+            listaErros.add(mensagemErro(linhaErro, "valor", ""));
         }
     }
 
@@ -541,12 +547,19 @@ public class AnalisadorSintatico {
             } else {
                 listaErros.add(mensagemErro(linhaErro, "simbolo", ";"));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "tipo", "variável"));
         }
     }
 
     public void ListaDeclaracaoVar() {
-        AtribuicaoVar();
-        ListaDeclaracaoVar2();
+
+        if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
+            AtribuicaoVar();
+            ListaDeclaracaoVar2();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, " ", "Variável esperada não encontrada."));
+        }
     }
 
     public void ListaDeclaracaoVar2() {
@@ -599,7 +612,7 @@ public class AnalisadorSintatico {
             } else {
                 listaErros.add(mensagemErro(linhaErro, "simbolo", "}"));
             }
-        } else {
+        } else {   //VERIFICAR
             listaErros.add(mensagemErro(linhaErro, "simbolo", ", ou }"));
         }
     }
@@ -1015,6 +1028,8 @@ public class AnalisadorSintatico {
 
         if ((token.equals("==")) || (token.equals("!="))) {
             proximoToken();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "operador", "relacional de igualdade"));
         }
     }
 
@@ -1022,6 +1037,8 @@ public class AnalisadorSintatico {
 
         if ((token.equals("<")) || (token.equals(">")) || (token.equals("<=")) || (token.equals(">="))) {
             proximoToken();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "operador", "relacional de comparação"));
         }
     }
 
@@ -1029,6 +1046,8 @@ public class AnalisadorSintatico {
 
         if ((token.equals("+")) || (token.equals("-"))) {
             proximoToken();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "operador", "aritmético de adição"));
         }
     }
 
@@ -1036,6 +1055,8 @@ public class AnalisadorSintatico {
 
         if ((token.equals("*")) || (token.equals("/"))) {
             proximoToken();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "operador", "aritmético de multiplicação"));
         }
     }
 
@@ -1043,6 +1064,8 @@ public class AnalisadorSintatico {
 
         if ((token.equals("++")) || (token.equals("--")) || (token.equals("!"))) {
             proximoToken();
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "operador", "aritmético de multiplicação"));
         }
     }
 
@@ -1066,6 +1089,8 @@ public class AnalisadorSintatico {
             if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
                 proximoToken();
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "valor", ""));
         }
     }
 
@@ -1078,7 +1103,11 @@ public class AnalisadorSintatico {
 
             if(token.equals(")")) {
                 proximoToken();
+            } else {
+                listaErros.add(mensagemErro(linhaErro, "simbolo", ")"));
             }
+        } else {
+            listaErros.add(mensagemErro(linhaErro, "valor", ""));
         }
     }
 

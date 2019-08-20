@@ -127,7 +127,7 @@
 <DELIMITADOR, ,, 23>
 <NUMERO, 4, 23>
 <DELIMITADOR, ,, 23>
-<NUMERO, 5}, 23>
+<NUMERO, 5, 23>
 <DELIMITADOR, ;, 23>
 <PALAVRA_RESERVADA, real, 24>
 <IDENTIFICADOR, mat, 24>
@@ -321,4 +321,4 @@
 <DELIMITADOR, }, 76>
 <DELIMITADOR, }, 77>
 
-Erro léxico na linha 23: número mal formado
+Sucesso!
