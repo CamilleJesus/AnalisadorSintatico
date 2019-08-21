@@ -54,6 +54,7 @@ public class AnalisadorSintatico {
         listaTokens = new ArrayList<>();
         listasTokens = new ArrayList<>();
 
+        // DEFINIÇÃO DOS CONJUNTOS PRIMEIROS
         PrimeiroDefConstante.add("constantes");
 
         PrimeiroDefPrincipal.add("metodo");
@@ -113,6 +114,7 @@ public class AnalisadorSintatico {
 
         for (int i = 0; i < listasTokens.size(); i++) {
 
+            // PEGA LISTA DE TOKENS E INICIALIZA O ANALISADOR SINTÁTICO, DEPOIS ESCREVE OS RESULTADOS NOS ARQUIVOS
             try {
                 numeroArquivo = i + 1;
                 setListaTokens(listasTokens.get(i));
@@ -126,12 +128,12 @@ public class AnalisadorSintatico {
     }
 
     public void procedimentosGramatica() {
-        proximoToken();
+        proximoToken(); //CHAMA O PRIMEIRO TOKEN DA LISTA
         Inicio();
 
-        if (token.equals("$")) {
+        if (token.equals("$")) { // CHEGOU SEM ERROS AO FIM DA ANÁLISE SINTÁTICA
             System.out.println("Sucesso na análise sintática do " + numeroArquivo + "º arquivo!");
-        } else {
+        } else { // NÃO OBTEVE SUCESSO NA ANÁLISE SINTÁTICA
             System.out.println("Erro na análise sintática do " + numeroArquivo + "º arquivo!");
         }
     }
@@ -146,6 +148,7 @@ public class AnalisadorSintatico {
         tokenAtual++;
     }
 
+    // ESQUELETO DO PROGRAMA + MENSAGENS DE ERRO
     public void Inicio() {
 
         if (token.equals("programa")) {
@@ -168,6 +171,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // CHAMADAS DAS FUNÇÕES GERADORAS DE BLOCOS DE CONSTANTES, MÉTODO PRINCIPAL E DECLARAÇÕES DE MÉTODOS
     public void DefGlobal() {
 
         if (PrimeiroDefConstante.contains(token)) {
@@ -190,6 +194,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // ESTRUTURA DO BLOCO 'CONSTANTES' + MENSAGENS DE ERROS
     public void DefConstante() {
 
         if (token.equals("constantes")) {
@@ -212,6 +217,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // ESTRUTURA DO BLOCO 'METODO PRINCIPAL' COM O GERADOR DE LISTA DE PARÂMETROS E OUTROS + MENSAGENS DE ERROS
     public void DefPrincipal() {
 
         if (token.equals("metodo")) {
@@ -260,6 +266,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // ESTRUTURA DE DECLARAÇÃO DE 'MÉTODOS' + MENSAGENS DE ERROS
     public void DefMetodo() {
 
         if (token.equals("metodo")) {
@@ -308,6 +315,7 @@ public class AnalisadorSintatico {
         }
     }
 
+   // LISTA DE DECLARAÇÕES DE CONSTANTES + MENSAGENS DE ERROS
     public void ListaConst() {
 
         if (PrimeiroTipoId.contains(token)) {
@@ -324,6 +332,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // RECURSÃO DE CONSTANTES
     public void ListaConst2() {
 
         if (PrimeiroTipoId.contains(token)) {
@@ -331,6 +340,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // DECLARAÇÃO DE UMA CONSTANTE + MENSAGEM DE ERRO
     public void Constante() {
 
         if (PrimeiroTipoId.contains(token)) {
@@ -350,6 +360,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // ESTRUTURA DE ATRIBUIÇÃO DE CONSTANTE + MENSAGENS DE ERROS
     public void AtribuicaoConst() {
 
         if (listaTokens.get(tokenAnterior).getClasse().equals("IDENTIFICADOR")) {
@@ -411,6 +422,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // VALOR DA CONSTANTE DEVE SER NÚMERO, CADEIA DE CARACTERES, VERDADEIRO OU FALSO. - EXIBE MENSAGENS DE ERROS
     public void ValorConst() {
 
         if ((listaTokens.get(tokenAnterior).getClasse().equals("NUMERO")) || (listaTokens.get(tokenAnterior).getClasse().equals("CADEIA_CARACTERES")) || (token.equals("verdadeiro")) || (token.equals("falso"))) {
@@ -420,6 +432,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // LISTA DE PARÂMETROS DE UM MÉTODO + MENSAGEM DE ERRO
     public void ListaParam() {
 
         if (PrimeiroTipoId.contains(token)) {
@@ -434,6 +447,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // GERADOR DE MÚLTIPLOS PARÂMETROS
     public void ListaParam2() {
 
         if (token.equals(",")) {
@@ -468,6 +482,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // GERADORES DE DECLARAÇÃO DE VARIÁVEIS, SE, ENQUANTO, LEIA, ESCREVA, EXPRESSÃO, E RESULTADO
     public void Declaracao() {
 
         if (PrimeiroDefVariavel.contains(token)) {
@@ -494,6 +509,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // ESTRUTURA DE DEFINIÇÃO DO BLOCO DE VARIÁVEIS + MENSAGENS DE ERROS
     public void DefVariavel() {
 
         if (token.equals("variaveis")) {
@@ -516,6 +532,7 @@ public class AnalisadorSintatico {
         }
     }
 
+    // PERMITE A DECLARAÇÃO DE MÚLTIPLAS VARIÁVEIS + MENSAGEM DE RRO
     public void ListaVar() {
 
         if (PrimeiroTipoId.contains(token)) {
@@ -526,7 +543,7 @@ public class AnalisadorSintatico {
         }
     }
 
-    //*** Verificar se o Primeiro está correto
+    // RECURSÃO PARA GERAR A LISTA DE VARIÁVEIS
     public void ListaVar2() {
 
         if (PrimeiroTipoId.contains(token)) {
@@ -535,7 +552,7 @@ public class AnalisadorSintatico {
         }
     }
 
-
+    // DECLARAÇÃO DE UMA VARIÁVEL + MENSAGEM DE ERRO
     public void DeclaracaoVar() {
 
         if (PrimeiroTipoId.contains(token)) {

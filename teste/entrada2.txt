@@ -20,7 +20,6 @@ programa {
             real h = 1.50, i = 1;
             boleano j = verdadeiro, k = falso;
             texto l = "casa", m = "palavra";
-            inteiro vet[5] = {1, 2, 3, 4, 5};
             real mat[4][5];
             inteiro var1;
         }
