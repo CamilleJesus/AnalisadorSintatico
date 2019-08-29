@@ -1,0 +1,22 @@
+programa {
+
+    constantes {
+        inteiro c1 = 1;
+    }
+
+    metodo principal() : vazio {
+
+        variaveis {
+            inteiro a = 1;
+        }
+    }
+
+    metodo calcularArea( inteiro base, inteiro altura) : inteiro{
+        variaveis {
+            inteiro area;
+        }
+        area = base * altura;
+        resultado area;
+    }
+}
+

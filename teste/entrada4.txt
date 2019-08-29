@@ -1,0 +1,24 @@
+programa {
+
+    constantes {
+        inteiro c1 = 1;
+        inteiro c2 = 12;
+        real c3 = 1.50, c4 = 1;
+        boleano c5 = verdadeiro, c6 = falso;
+        texto c7 = "casa", c8 = "palavra";
+        inteiro c9 = 25;
+    }
+
+    metodo principal() : vazio {
+
+        variaveis {
+            inteiro a = 1;
+        }
+
+        enquanto (a != b) {
+            b = c+a;
+            d++;
+        }
+    }
+}
+

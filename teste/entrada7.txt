@@ -1,0 +1,31 @@
+programa {
+
+    constantes {
+        texto c7 = "casa", c8 = "palavra";
+    }
+
+    metodo principal() : vazio {
+
+        variaveis {
+            real h = 1.50, i = 1;
+            boleano j = verdadeiro, k = falso;
+        }
+    }
+
+    metodo lerDados() : vazio {
+        variaveis {
+            texto var1;
+            inteiro vet1[10];
+        }
+        leia (var1);
+        leia (vet1[0]);
+    }
+
+    metodo metXchamaMetY() : vazio {
+        variaveis {
+            inteiro area;
+        }
+        area = calcularArea(2,4);
+    }
+}
+

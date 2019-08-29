@@ -13,10 +13,9 @@ import java.util.Scanner;
 
 public class AnalisadorLexico {
 
-    private ArrayList<String> lexemas;
+    private ArrayList<String> lexemas, listaErros;
     private ArrayList<Integer> linhas;
     private ArrayList<Token> listaTokens;
-    private ArrayList<String> listaErros;
     private ArrayList<ArrayList<Token>> listasTokens;
 
     public ArrayList<ArrayList<Token>> getListasTokens() {
@@ -232,7 +231,7 @@ public class AnalisadorLexico {
 
     // ADICIONA A MENSAGAGEM DE ERRO NO ARQUIVO DE SAÍDA
     public String mensagemErro (long linhaErro, String erro) {
-        return ("Erro léxico na linha " + linhaErro+ ": " + erro);
+        return ("Erro léxico na linha " + linhaErro + ": " + erro);
     }
 
 
@@ -276,7 +275,7 @@ public class AnalisadorLexico {
 
     // GERA O ARQUIVO DE SAÍDA COM OS DEVIDOS TOKENS E POSSÍVELS ERROS LÉXICOS
     public void escreverArquivo(int numeroArquivo) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("teste/saida" + numeroArquivo + ".txt"));
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter("teste/saidaLexico" + numeroArquivo + ".txt"));
 
         for (int i = 0; i < listaTokens.size(); i++) {
             buffWrite.append(listaTokens.get(i).toString() + "\n");
@@ -291,7 +290,7 @@ public class AnalisadorLexico {
             }
         }
         buffWrite.close();
-        System.out.println("\nResultado da análise léxica no arquivo: saida" + numeroArquivo + ".txt");
+        System.out.println("\nResultado da análise léxica no arquivo: saidaLexica" + numeroArquivo + ".txt");
     }
 
     public void clonarListaTokens() {

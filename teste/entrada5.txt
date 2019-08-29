@@ -1,0 +1,24 @@
+programa {
+
+    constantes {
+        inteiro c1 = 1;
+    }
+
+    metodo principal() : vazio {
+
+        variaveis {
+            inteiro a = 1;
+            inteiro var1;
+        }
+    }
+
+    metodo mostrarMensagem() : vazio {
+        variaveis {
+            inteiro var1 = 2455;
+            inteiro vet1[0] = 1;
+        }
+        escreva ("texto");
+        escreva (var1);
+        escreva (vet1[0]);
+    }
+}
